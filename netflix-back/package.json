@@ -1,0 +1,24 @@
+{
+  "name": "netflix-back",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemons app.js"
+  },
+  "keywords": [],
+  "author": "Emanuel Alvarado <emanuelalvaradog@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
+    "express": "^4.17.2",
+    "fetch": "^1.1.0",
+    "node-fetch": "^3.1.0"
+  },
+  "engines": {
+    "node": "14.x"
+  }
+}
