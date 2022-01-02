@@ -69,15 +69,15 @@ moviesList.forEach(async (genre) => {
     const elementControls = document.createElement("div");
     elementControls.classList.add("movie-controls");
     const playControl = document.createElement("img");
-    playControl.src = "./img/play.png";
+    playControl.src = "./netflix-front/img/play.png";
     const addControl = document.createElement("img");
-    addControl.src = "./img/add.png";
+    addControl.src = "./netflix-front/img/add.png";
     const likeControl = document.createElement("img");
-    likeControl.src = "./img/like.png";
+    likeControl.src = "./netflix-front/img/like.png";
     const dislikeControl = document.createElement("img");
-    dislikeControl.src = "./img/dislike.png";
+    dislikeControl.src = "./netflix-front/img/dislike.png";
     const moreControl = document.createElement("img");
-    moreControl.src = "./img/more.png";
+    moreControl.src = "./netflix-front/img/more.png";
 
     elementControls.append(
       playControl,

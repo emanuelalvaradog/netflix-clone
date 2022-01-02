@@ -94,19 +94,19 @@ const controlsContainer = document.querySelector(".mainMovie-controls");
 const dataContainer = document.querySelector(".mainMovie-data");
 
 const img = document.createElement("img");
-img.src = "./img/klausStatic.jpg";
+img.src = "./netflix-front/img/klausStatic.jpg";
 
 const video = document.createElement("video");
-video.src = "./img/KlausTrailer.mp4";
+video.src = "./netflix-front/img/KlausTrailer.mp4";
 
 const muted = document.createElement("img");
-muted.src = "./img/muted.png";
+muted.src = "./netflix-front/img/muted.png";
 
 const unmuted = document.createElement("img");
-unmuted.src = "./img/unmuted.png";
+unmuted.src = "./netflix-front/img/unmuted.png";
 
 const repeat = document.createElement("img");
-repeat.src = "./img/repeat.png";
+repeat.src = "./netflix-front/img/repeat.png";
 
 const player = new PlayerControl(
   video,

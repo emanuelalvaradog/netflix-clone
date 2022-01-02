@@ -1,0 +1,24 @@
+{
+  "name": "netflix-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "live-server"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emanuelalvaradog/netflix-clone.git"
+  },
+  "keywords": [],
+  "author": "Emanuel Alvarado <emanuelalvaradog@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/emanuelalvaradog/netflix-clone/issues"
+  },
+  "homepage": "https://github.com/emanuelalvaradog/netflix-clone#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
+}
