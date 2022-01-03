@@ -18,7 +18,7 @@ const API = "https://secure-escarpment-59792.herokuapp.com";
 const genres = await fetch(`${API}/genres`);
 const moviesList = genres.genres;
 
-const mobileQuery = window.matchMedia("(max-width: 425px)");
+const mobileQuery = window.matchMedia("(max-width: 768px)");
 
 if (!mobileQuery.matches) {
   moviesList.forEach(async (genre) => {
