@@ -309,7 +309,7 @@ i {
   }
 }
 
-@media (min-width: 320px) {
+@media (max-width: 728px) {
   header {
     background-color: solid;
     background: linear-gradient(to bottom, rgb(0, 0, 0) 0%, #1111115e 100%);
