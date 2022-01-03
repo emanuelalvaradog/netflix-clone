@@ -1,8 +1,5 @@
 /netflix-front/node_modules
 /netflix-back/node_modules
-/netflix-back/secure-escarpment-59792/.env
+/netflix-back/.env
 .vscode
 /node_modules
-
-
-

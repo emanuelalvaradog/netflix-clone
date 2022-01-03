@@ -142,32 +142,27 @@ i {
 
 .movie {
   display: flex;
-  flex-direction: row;
+  transition: 0.1s;
   width: 15rem;
-  margin-right: 1.5rem;
+  margin-right: 1.4rem;
   &-poster {
     img {
       width: 13rem;
       height: 20rem;
       border-radius: 0.6rem;
-      &:hover {
-        transform: scale(1.2);
-      }
-    }
-  }
-  &-controls {
-    display: none;
-    img {
-      width: 2rem;
+      object-fit: cover;
     }
   }
   &-info {
+    opacity: 0;
     display: none;
+    visibility: hidden;
   }
 }
 
 .carouselContainer {
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   position: absolute;
   top: 82vh;
@@ -178,18 +173,17 @@ i {
     padding: 0 4rem;
     margin-bottom: 5rem;
     .carousel-movies {
-      // overflow-x: scroll;
       overflow: hidden;
       scroll-behavior: smooth;
-      display: flex;
-      height: 20rem;
+      white-space: nowrap;
+      display: inline-flex;
       .carouselControls {
         transition: 0.3s;
         display: flex;
         visibility: hidden;
         opacity: 0;
         align-items: center;
-        z-index: 2;
+        z-index: 6;
         span {
           color: white;
           font-size: 3rem;
@@ -201,9 +195,6 @@ i {
         .next {
           position: absolute;
           right: 1.4rem;
-          &:hover {
-            background: linear-gradient(to left, #141414b2, transparent);
-          }
         }
       }
       &::after {
@@ -211,9 +202,9 @@ i {
         z-index: 1;
         position: absolute;
         right: 0;
-        width: 2rem;
+        width: 10rem;
         height: 20rem;
-        background: linear-gradient(to left, #141414b2, transparent);
+        background: linear-gradient(to left, #141414d7, transparent);
       }
     }
 
@@ -234,3 +225,125 @@ i {
     }
   }
 }
+
+.card {
+  display: flex;
+  width: 55rem;
+  height: 20rem;
+  .movie {
+    &-info {
+      background: #0f0f0ff3;
+      border-radius: 0.6rem;
+      width: 30rem;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 1;
+      visibility: visible;
+      .movie-title {
+        display: flex;
+        white-space: initial;
+        text-align: center;
+        p {
+          color: rgb(204, 204, 204);
+          font-weight: bold;
+          padding: 0.8rem;
+          font-size: 1.8rem;
+          overflow-wrap: normal;
+          word-wrap: normal;
+        }
+      }
+
+      .movie-numbers {
+        display: flex;
+        flex-direction: row;
+        .likelihood {
+          p {
+            color: rgb(1, 173, 1);
+            font-size: 1.5rem;
+            font-weight: bold;
+          }
+          margin: 0.5rem 1rem;
+        }
+        .length {
+          p {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: rgb(155, 155, 155);
+          }
+          margin: 0.5rem 1rem;
+        }
+      }
+
+      .genres {
+        display: flex;
+        flex-direction: row;
+        white-space: initial;
+        margin: 1rem 0 0.2rem 0;
+        p {
+          color: rgb(120, 120, 120);
+          font-weight: bold;
+          font-size: 1.2rem;
+          overflow-wrap: normal;
+          padding: 0 1rem;
+        }
+      }
+      .overview {
+        overflow-y: hidden;
+        white-space: initial;
+        padding: 1.2rem;
+      }
+      p {
+        overflow-wrap: normal;
+        display: -webkit-box;
+        word-wrap: normal;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        text-align: center;
+        font-size: 1.2rem;
+        color: rgb(180, 180, 180);
+      }
+    }
+  }
+}
+
+@media (min-width: 320px) {
+  .mobile {
+    header {
+      background-color: solid;
+      background: linear-gradient(to bottom, rgb(0, 0, 0) 0%, #1111115e 100%);
+      .header-1 {
+        width: 100%;
+        padding-left: 2rem;
+        img {
+          width: 10rem;
+        }
+      }
+    }
+    .carouselContainer {
+      top: 8rem;
+      &-carousel {
+        padding: 0 2.2rem;
+        .carousel-movies {
+          overflow: scroll;
+        }
+        .carousel-title {
+          color: rgb(210, 210, 210);
+        }
+      }
+    }
+
+    .movie {
+      &-poster {
+        img {
+          width: 12rem;
+          height: 18rem;
+        }
+      }
+    }
+  }
+}
+
+// @media (max-width: );
