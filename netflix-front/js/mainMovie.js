@@ -84,10 +84,8 @@ if (!mobileQuery.matches) {
   const videoObserver = new IntersectionObserver(
     (entries) => {
       if (entries[0].isIntersecting) {
-        console.log("Intersecting");
         player.loadVideo();
       } else {
-        console.log("Not intersecting");
         player.loadStatic();
       }
     },
