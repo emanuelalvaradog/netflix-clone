@@ -2,7 +2,6 @@ const mobileQuery = window.matchMedia("(max-width: 425px)");
 const app = document.querySelector(".app");
 
 if (!mobileQuery.matches) {
-  app.classList.add("destkop");
   class PlayerControl {
     constructor(
       video,
@@ -144,7 +143,6 @@ if (!mobileQuery.matches) {
     player.listenVideo(false);
   });
 } else {
-  app.classList.add("mobile");
   const header = document.querySelector(".header-container");
   app.removeChild(app.firstElementChild);
   header.removeChild(header.children[1]);

@@ -310,37 +310,35 @@ i {
 }
 
 @media (min-width: 320px) {
-  .mobile {
-    header {
-      background-color: solid;
-      background: linear-gradient(to bottom, rgb(0, 0, 0) 0%, #1111115e 100%);
-      .header-1 {
-        width: 100%;
-        padding-left: 2rem;
-        img {
-          width: 10rem;
-        }
+  header {
+    background-color: solid;
+    background: linear-gradient(to bottom, rgb(0, 0, 0) 0%, #1111115e 100%);
+    .header-1 {
+      width: 100%;
+      padding-left: 2rem;
+      img {
+        width: 10rem;
       }
     }
-    .carouselContainer {
-      top: 8rem;
-      &-carousel {
-        padding: 0 2.2rem;
-        .carousel-movies {
-          overflow: scroll;
-        }
-        .carousel-title {
-          color: rgb(210, 210, 210);
-        }
+  }
+  .carouselContainer {
+    top: 8rem;
+    &-carousel {
+      padding: 0 2.2rem;
+      .carousel-movies {
+        overflow: scroll;
+      }
+      .carousel-title {
+        color: rgb(210, 210, 210);
       }
     }
+  }
 
-    .movie {
-      &-poster {
-        img {
-          width: 12rem;
-          height: 18rem;
-        }
+  .movie {
+    &-poster {
+      img {
+        width: 12rem;
+        height: 18rem;
       }
     }
   }
