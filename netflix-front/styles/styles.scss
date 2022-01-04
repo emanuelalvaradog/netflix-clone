@@ -309,7 +309,7 @@ i {
   }
 }
 
-@media (max-width: 728px) {
+@media (max-width: 767px) {
   header {
     background-color: solid;
     background: linear-gradient(to bottom, rgb(0, 0, 0) 0%, #1111115e 100%);
@@ -319,6 +319,12 @@ i {
       img {
         width: 10rem;
       }
+      ul {
+        visibility: hidden;
+      }
+    }
+    .header-2 {
+      visibility: hidden;
     }
   }
   .carouselContainer {
@@ -333,7 +339,6 @@ i {
       }
     }
   }
-
   .movie {
     &-poster {
       img {
@@ -341,7 +346,8 @@ i {
         height: 18rem;
       }
     }
+    &-controls {
+      visibility: hidden;
+    }
   }
 }
-
-// @media (max-width: );

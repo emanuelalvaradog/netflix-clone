@@ -15,301 +15,335 @@ const fetch = (api_url) => {
 
 const API = "https://secure-escarpment-59792.herokuapp.com";
 
+function cardHoverOn(n) {
+  const node = n.currentTarget;
+  node.classList.add("card");
+}
+
+function cardHoverOff(n) {
+  const node = n.currentTarget;
+  node.classList.remove("card");
+}
+
 const genres = await fetch(`${API}/genres`);
 const moviesList = genres.genres;
+const app = document.querySelector(".app");
 
-const mobileQuery = window.matchMedia("(max-width: 768px)");
+const parent = document.createElement("div");
+parent.className = "carouselContainer";
 
-if (!mobileQuery.matches) {
-  moviesList.forEach(async (genre) => {
-    let observer = new IntersectionObserver(
-      (entries) => {
-        entries
-          .filter((entry) => {
-            return entry.isIntersecting;
-          })
-          .forEach((entry) => {
-            const elementContainer = entry.target;
-            const imageContainer = elementContainer.firstChild;
-            const image = imageContainer.firstChild;
-            const url = image.dataset.src;
-            image.src = url;
-            delete image.dataset.src;
-            observer.unobserve(elementContainer);
-          });
-      },
-      { rootMargin: "30px" }
-    );
+app.insertAdjacentElement("beforeend", parent);
 
-    // Api Data
-    const moviesByGenre = await fetch(`${API}/movies/${genre.id}`);
-
-    const parent = document.querySelector(".carouselContainer");
-    const carouselContainer = document.createElement("div");
-    carouselContainer.classList.add("carouselContainer-carousel");
-    const carouselElements = document.createElement("div");
-    carouselElements.classList.add("carousel-movies");
-
-    // Carousel title by genre
-    const carouselTitle = document.createElement("div");
-    carouselTitle.classList.add("carousel-title");
-    const carouselTitleTxt = document.createElement("p");
-    carouselTitleTxt.innerText = genre.name;
-    carouselTitle.appendChild(carouselTitleTxt);
-
-    for (let i = 0; i < moviesByGenre.results.length; i++) {
-      const element = document.createElement("div");
-      element.classList.add("movie");
-
-      // Poster from movies array
-      const elementPosterContainer = document.createElement("div");
-      elementPosterContainer.classList.add("movie-poster");
-      const elementPoster = document.createElement("img");
-      elementPoster.dataset.src = `https://image.tmdb.org/t/p/original${moviesByGenre.results[i].poster_path}`;
-      elementPosterContainer.appendChild(elementPoster);
-
-      const elementInfo = document.createElement("div");
-      elementInfo.classList.add("movie-info");
-
-      // Movie Title
-      const movieTitle = document.createElement("div");
-      movieTitle.classList.add("movie-title");
-      const movieTitleTxt = document.createElement("p");
-      movieTitleTxt.innerText = moviesByGenre.results[i].title;
-      movieTitle.appendChild(movieTitleTxt);
-
-      const movieNumbers = document.createElement("div");
-      movieNumbers.classList.add("movie-numbers");
-
-      // Random likelihood number
-      const likelihoodInfo = document.createElement("div");
-      likelihoodInfo.classList.add("likelihood");
-      const likelihoodInfoTxt = document.createElement("p");
-      const likenum = Math.floor(Math.random() * (100 - 84 + 1) + 84);
-      likelihoodInfoTxt.innerText = `${likenum}%`;
-      likelihoodInfo.appendChild(likelihoodInfoTxt);
-
-      // Random movie length
-      const lengthInfo = document.createElement("div");
-      lengthInfo.classList.add("length");
-      const lengthInfoTxt = document.createElement("p");
-      const lengthnum = Math.floor(Math.random() * (137 - 68 + 1) + 68);
-      lengthInfoTxt.innerText = `${lengthnum} min`;
-      lengthInfo.appendChild(lengthInfoTxt);
-
-      // Set genre names from object
-      const genresInfo = document.createElement("div");
-      genresInfo.classList.add("genres");
-      for (let j = 0; j < moviesByGenre.results[i].genre_ids.length; j++) {
-        const genreInfoTxt = document.createElement("p");
-        moviesList.map((genre) => {
-          if (genre.id == moviesByGenre.results[i].genre_ids[j]) {
-            genreInfoTxt.innerText = genre.name;
-            genresInfo.appendChild(genreInfoTxt);
-          }
+moviesList.forEach(async (genre) => {
+  let observer = new IntersectionObserver(
+    (entries) => {
+      entries
+        .filter((entry) => {
+          return entry.isIntersecting;
+        })
+        .forEach((entry) => {
+          const elementContainer = entry.target;
+          const imageContainer = elementContainer.firstChild;
+          const image = imageContainer.firstChild;
+          const url = image.dataset.src;
+          image.src = url;
+          delete image.dataset.src;
+          observer.unobserve(elementContainer);
         });
-      }
+    },
+    { rootMargin: "30px" }
+  );
 
-      movieNumbers.append(likelihoodInfo, lengthInfo);
+  // Api Data
+  const moviesByGenre = await fetch(`${API}/movies/${genre.id}`);
 
-      const overviewInfo = document.createElement("div");
-      overviewInfo.classList.add("overview");
-      const overviewInfoTxt = document.createElement("p");
-      overviewInfoTxt.innerText = moviesByGenre.results[i].overview;
-      overviewInfo.appendChild(overviewInfoTxt);
+  // const parent = document.querySelector(".carouselContainer");
+  const carouselContainer = document.createElement("div");
+  carouselContainer.classList.add("carouselContainer-carousel");
+  const carouselElements = document.createElement("div");
+  carouselElements.classList.add("carousel-movies");
 
-      elementInfo.append(movieTitle, movieNumbers, genresInfo, overviewInfo);
+  // Carousel title by genre
+  const carouselTitle = document.createElement("div");
+  carouselTitle.classList.add("carousel-title");
+  const carouselTitleTxt = document.createElement("p");
+  carouselTitleTxt.innerText = genre.name;
+  carouselTitle.appendChild(carouselTitleTxt);
 
-      element.append(elementPosterContainer, elementInfo);
-      observer.observe(element);
-      carouselElements.append(element);
-      carouselContainer.append(carouselTitle, carouselElements);
+  for (let i = 0; i < moviesByGenre.results.length; i++) {
+    const element = document.createElement("div");
+    element.classList.add("movie");
+
+    // Poster from movies array
+    const elementPosterContainer = document.createElement("div");
+    elementPosterContainer.classList.add("movie-poster");
+    const elementPoster = document.createElement("img");
+    elementPoster.dataset.src = `https://image.tmdb.org/t/p/original${moviesByGenre.results[i].poster_path}`;
+    elementPosterContainer.appendChild(elementPoster);
+
+    const elementInfo = document.createElement("div");
+    elementInfo.classList.add("movie-info");
+
+    // Movie Title
+    const movieTitle = document.createElement("div");
+    movieTitle.classList.add("movie-title");
+    const movieTitleTxt = document.createElement("p");
+    movieTitleTxt.innerText = moviesByGenre.results[i].title;
+    movieTitle.appendChild(movieTitleTxt);
+
+    const movieNumbers = document.createElement("div");
+    movieNumbers.classList.add("movie-numbers");
+
+    // Random likelihood number
+    const likelihoodInfo = document.createElement("div");
+    likelihoodInfo.classList.add("likelihood");
+    const likelihoodInfoTxt = document.createElement("p");
+    const likenum = Math.floor(Math.random() * (100 - 84 + 1) + 84);
+    likelihoodInfoTxt.innerText = `${likenum}%`;
+    likelihoodInfo.appendChild(likelihoodInfoTxt);
+
+    // Random movie length
+    const lengthInfo = document.createElement("div");
+    lengthInfo.classList.add("length");
+    const lengthInfoTxt = document.createElement("p");
+    const lengthnum = Math.floor(Math.random() * (137 - 68 + 1) + 68);
+    lengthInfoTxt.innerText = `${lengthnum} min`;
+    lengthInfo.appendChild(lengthInfoTxt);
+
+    // Set genre names from object
+    const genresInfo = document.createElement("div");
+    genresInfo.classList.add("genres");
+    for (let j = 0; j < moviesByGenre.results[i].genre_ids.length; j++) {
+      const genreInfoTxt = document.createElement("p");
+      moviesList.map((genre) => {
+        if (genre.id == moviesByGenre.results[i].genre_ids[j]) {
+          genreInfoTxt.innerText = genre.name;
+          genresInfo.appendChild(genreInfoTxt);
+        }
+      });
     }
 
-    const nodes = [...carouselElements.children].slice(0);
-    nodes.forEach((el) => {
-      el.addEventListener("mouseenter", (n) => {
-        const node = n.currentTarget;
-        node.classList.add("card");
-      });
+    movieNumbers.append(likelihoodInfo, lengthInfo);
 
-      el.addEventListener("mouseleave", (n) => {
-        const node = n.currentTarget;
-        node.classList.remove("card");
-      });
-    });
+    const overviewInfo = document.createElement("div");
+    overviewInfo.classList.add("overview");
+    const overviewInfoTxt = document.createElement("p");
+    overviewInfoTxt.innerText = moviesByGenre.results[i].overview;
+    overviewInfo.appendChild(overviewInfoTxt);
 
-    // Carousel controls
-    const carouselControls = document.createElement("div");
-    carouselControls.className = "carouselControls";
-    const leftContainer = document.createElement("span");
-    const leftControl = document.createElement("i");
-    leftControl.className = "fas fa-chevron-left prev";
+    elementInfo.append(movieTitle, movieNumbers, genresInfo, overviewInfo);
 
-    leftContainer.addEventListener("click", () => {
-      const offset = carouselElements.offsetWidth;
-      carouselElements.scrollLeft -= offset;
-    });
+    element.append(elementPosterContainer, elementInfo);
+    observer.observe(element);
+    carouselElements.append(element);
+    carouselContainer.append(carouselTitle, carouselElements);
+  }
 
-    leftContainer.appendChild(leftControl);
-    const rightContainer = document.createElement("span");
-    const rightControl = document.createElement("i");
-    rightControl.className = "fas fa-chevron-right next";
-    rightContainer.appendChild(rightControl);
+  const nodes = [...carouselElements.children].slice(0);
 
-    rightContainer.addEventListener("click", () => {
-      const offset = carouselElements.offsetWidth;
-      carouselElements.scrollLeft += offset;
-    });
-    carouselControls.append(leftContainer, rightContainer);
+  nodes.forEach((el) => {
+    el.addEventListener("mouseenter", cardHoverOn);
 
-    carouselElements.insertAdjacentElement("afterbegin", carouselControls);
-    parent.appendChild(carouselContainer);
+    el.addEventListener("mouseleave", cardHoverOff);
   });
-} else {
-  moviesList.forEach(async (genre) => {
-    let observer = new IntersectionObserver(
-      (entries) => {
-        entries
-          .filter((entry) => {
-            return entry.isIntersecting;
-          })
-          .forEach((entry) => {
-            const elementContainer = entry.target;
-            const imageContainer = elementContainer.firstChild;
-            const image = imageContainer.firstChild;
-            const url = image.dataset.src;
-            image.src = url;
-            delete image.dataset.src;
-            observer.unobserve(elementContainer);
-          });
-      },
-      { rootMargin: "30px" }
-    );
 
-    // Api Data
-    const moviesByGenre = await fetch(`${API}/movies/${genre.id}`);
+  // Carousel controls
+  const carouselControls = document.createElement("div");
+  carouselControls.className = "carouselControls";
+  const leftContainer = document.createElement("span");
+  const leftControl = document.createElement("i");
+  leftControl.className = "fas fa-chevron-left prev";
 
-    const parent = document.querySelector(".carouselContainer");
-    const carouselContainer = document.createElement("div");
-    carouselContainer.classList.add("carouselContainer-carousel");
-    const carouselElements = document.createElement("div");
-    carouselElements.classList.add("carousel-movies");
+  leftContainer.addEventListener("click", () => {
+    const offset = carouselElements.offsetWidth;
+    carouselElements.scrollLeft -= offset;
+  });
 
-    // Carousel title by genre
-    const carouselTitle = document.createElement("div");
-    carouselTitle.classList.add("carousel-title");
-    const carouselTitleTxt = document.createElement("p");
-    carouselTitleTxt.innerText = genre.name;
-    carouselTitle.appendChild(carouselTitleTxt);
+  leftContainer.appendChild(leftControl);
+  const rightContainer = document.createElement("span");
+  const rightControl = document.createElement("i");
+  rightControl.className = "fas fa-chevron-right next";
+  rightContainer.appendChild(rightControl);
 
-    for (let i = 0; i < moviesByGenre.results.length; i++) {
-      const element = document.createElement("div");
-      element.classList.add("movie");
+  rightContainer.addEventListener("click", () => {
+    const offset = carouselElements.offsetWidth;
+    carouselElements.scrollLeft += offset;
+  });
+  carouselControls.append(leftContainer, rightContainer);
 
-      // Poster from movies array
-      const elementPosterContainer = document.createElement("div");
-      elementPosterContainer.classList.add("movie-poster");
-      const elementPoster = document.createElement("img");
-      elementPoster.dataset.src = `https://image.tmdb.org/t/p/original${moviesByGenre.results[i].poster_path}`;
-      elementPosterContainer.appendChild(elementPoster);
+  carouselElements.insertAdjacentElement("afterbegin", carouselControls);
+  parent.appendChild(carouselContainer);
+});
 
-      const elementInfo = document.createElement("div");
-      elementInfo.classList.add("movie-info");
+function queryMatch(mobileQuery) {
+  if (mobileQuery.matches) {
+    console.log("no controls");
+    setTimeout(() => {
+      const carouselCont = [...document.querySelectorAll(".carousel-movies")];
+      carouselCont.forEach((el) => {
+        el.removeChild(el.firstChild);
+        el.removeEventListener("mouseenter", cardHoverOn);
+        el.removeEventListener("mouseleave", cardHoverOff);
+      });
+    }, 1000);
+  } else {
+    console.log("controls");
+    setTimeout(() => {
+      const carouselCont = [...document.querySelectorAll(".carousel-movies")];
+      const carouselControls = document.createElement("div");
+      carouselControls.className = "carouselControls";
+      const leftContainer = document.createElement("span");
+      const leftControl = document.createElement("i");
+      leftControl.className = "fas fa-chevron-left prev";
+      leftContainer.addEventListener("click", () => {
+        const offset = carouselElements.offsetWidth;
+        carouselElements.scrollLeft -= offset;
+      });
+      leftContainer.appendChild(leftControl);
+      const rightContainer = document.createElement("span");
+      const rightControl = document.createElement("i");
+      rightControl.className = "fas fa-chevron-right next";
+      rightContainer.appendChild(rightControl);
+      rightContainer.addEventListener("click", () => {
+        const offset = carouselElements.offsetWidth;
+        carouselElements.scrollLeft += offset;
+      });
+      carouselControls.append(leftContainer, rightContainer);
 
-      // Movie Title
-      const movieTitle = document.createElement("div");
-      movieTitle.classList.add("movie-title");
-      const movieTitleTxt = document.createElement("p");
-      movieTitleTxt.innerText = moviesByGenre.results[i].title;
-      movieTitle.appendChild(movieTitleTxt);
-
-      const movieNumbers = document.createElement("div");
-      movieNumbers.classList.add("movie-numbers");
-
-      // Random likelihood number
-      const likelihoodInfo = document.createElement("div");
-      likelihoodInfo.classList.add("likelihood");
-      const likelihoodInfoTxt = document.createElement("p");
-      const likenum = Math.floor(Math.random() * (100 - 84 + 1) + 84);
-      likelihoodInfoTxt.innerText = `${likenum}%`;
-      likelihoodInfo.appendChild(likelihoodInfoTxt);
-
-      // Random movie length
-      const lengthInfo = document.createElement("div");
-      lengthInfo.classList.add("length");
-      const lengthInfoTxt = document.createElement("p");
-      const lengthnum = Math.floor(Math.random() * (137 - 68 + 1) + 68);
-      lengthInfoTxt.innerText = `${lengthnum} min`;
-      lengthInfo.appendChild(lengthInfoTxt);
-
-      // Set genre names from object
-      const genresInfo = document.createElement("div");
-      genresInfo.classList.add("genres");
-      for (let j = 0; j < moviesByGenre.results[i].genre_ids.length; j++) {
-        const genreInfoTxt = document.createElement("p");
-        moviesList.map((genre) => {
-          if (genre.id == moviesByGenre.results[i].genre_ids[j]) {
-            genreInfoTxt.innerText = genre.name;
-            genresInfo.appendChild(genreInfoTxt);
-          }
-        });
-      }
-
-      movieNumbers.append(likelihoodInfo, lengthInfo);
-
-      const overviewInfo = document.createElement("div");
-      overviewInfo.classList.add("overview");
-      const overviewInfoTxt = document.createElement("p");
-      overviewInfoTxt.innerText = moviesByGenre.results[i].overview;
-      overviewInfo.appendChild(overviewInfoTxt);
-
-      elementInfo.append(movieTitle, movieNumbers, genresInfo, overviewInfo);
-
-      element.append(elementPosterContainer, elementInfo);
-      observer.observe(element);
-      carouselElements.append(element);
-      carouselContainer.append(carouselTitle, carouselElements);
-    }
-
+      carouselCont.forEach((el) => {
+        console.log(el);
+        el.insertAdjacentElement("afterbegin", carouselControls);
+      });
+    }, 1000);
+    // !!
+    // moviesList.forEach(async (genre) => {
+    //   let observer = new IntersectionObserver(
+    //     (entries) => {
+    //       entries
+    //         .filter((entry) => {
+    //           return entry.isIntersecting;
+    //         })
+    //         .forEach((entry) => {
+    //           const elementContainer = entry.target;
+    //           const imageContainer = elementContainer.firstChild;
+    //           const image = imageContainer.firstChild;
+    //           const url = image.dataset.src;
+    //           image.src = url;
+    //           delete image.dataset.src;
+    //           observer.unobserve(elementContainer);
+    //         });
+    //     },
+    //     { rootMargin: "30px" }
+    //   );
+    //   // Api Data
+    //   const moviesByGenre = await fetch(`${API}/movies/${genre.id}`);
+    //   const parent = document.querySelector(".carouselContainer");
+    //   const carouselContainer = document.createElement("div");
+    //   carouselContainer.classList.add("carouselContainer-carousel");
+    //   const carouselElements = document.createElement("div");
+    //   carouselElements.classList.add("carousel-movies");
+    //   // Carousel title by genre
+    //   const carouselTitle = document.createElement("div");
+    //   carouselTitle.classList.add("carousel-title");
+    //   const carouselTitleTxt = document.createElement("p");
+    //   carouselTitleTxt.innerText = genre.name;
+    //   carouselTitle.appendChild(carouselTitleTxt);
+    //   for (let i = 0; i < moviesByGenre.results.length; i++) {
+    //     const element = document.createElement("div");
+    //     element.classList.add("movie");
+    //     // Poster from movies array
+    //     const elementPosterContainer = document.createElement("div");
+    //     elementPosterContainer.classList.add("movie-poster");
+    //     const elementPoster = document.createElement("img");
+    //     elementPoster.dataset.src = `https://image.tmdb.org/t/p/original${moviesByGenre.results[i].poster_path}`;
+    //     elementPosterContainer.appendChild(elementPoster);
+    //     const elementInfo = document.createElement("div");
+    //     elementInfo.classList.add("movie-info");
+    //     // Movie Title
+    //     const movieTitle = document.createElement("div");
+    //     movieTitle.classList.add("movie-title");
+    //     const movieTitleTxt = document.createElement("p");
+    //     movieTitleTxt.innerText = moviesByGenre.results[i].title;
+    //     movieTitle.appendChild(movieTitleTxt);
+    //     const movieNumbers = document.createElement("div");
+    //     movieNumbers.classList.add("movie-numbers");
+    //     // Random likelihood number
+    //     const likelihoodInfo = document.createElement("div");
+    //     likelihoodInfo.classList.add("likelihood");
+    //     const likelihoodInfoTxt = document.createElement("p");
+    //     const likenum = Math.floor(Math.random() * (100 - 84 + 1) + 84);
+    //     likelihoodInfoTxt.innerText = `${likenum}%`;
+    //     likelihoodInfo.appendChild(likelihoodInfoTxt);
+    //     // Random movie length
+    //     const lengthInfo = document.createElement("div");
+    //     lengthInfo.classList.add("length");
+    //     const lengthInfoTxt = document.createElement("p");
+    //     const lengthnum = Math.floor(Math.random() * (137 - 68 + 1) + 68);
+    //     lengthInfoTxt.innerText = `${lengthnum} min`;
+    //     lengthInfo.appendChild(lengthInfoTxt);
+    //     // Set genre names from object
+    //     const genresInfo = document.createElement("div");
+    //     genresInfo.classList.add("genres");
+    //     for (let j = 0; j < moviesByGenre.results[i].genre_ids.length; j++) {
+    //       const genreInfoTxt = document.createElement("p");
+    //       moviesList.map((genre) => {
+    //         if (genre.id == moviesByGenre.results[i].genre_ids[j]) {
+    //           genreInfoTxt.innerText = genre.name;
+    //           genresInfo.appendChild(genreInfoTxt);
+    //         }
+    //       });
+    //     }
+    //     movieNumbers.append(likelihoodInfo, lengthInfo);
+    //     const overviewInfo = document.createElement("div");
+    //     overviewInfo.classList.add("overview");
+    //     const overviewInfoTxt = document.createElement("p");
+    //     overviewInfoTxt.innerText = moviesByGenre.results[i].overview;
+    //     overviewInfo.appendChild(overviewInfoTxt);
+    //     elementInfo.append(movieTitle, movieNumbers, genresInfo, overviewInfo);
+    //     element.append(elementPosterContainer, elementInfo);
+    //     observer.observe(element);
+    //     carouselElements.append(element);
+    //     carouselContainer.append(carouselTitle, carouselElements);
+    //   }
     // const nodes = [...carouselElements.children].slice(0);
     // nodes.forEach((el) => {
     //   el.addEventListener("mouseenter", (n) => {
     //     const node = n.currentTarget;
     //     node.classList.add("card");
     //   });
-
     //   el.addEventListener("mouseleave", (n) => {
     //     const node = n.currentTarget;
     //     node.classList.remove("card");
     //   });
     // });
-
     // // Carousel controls
     // const carouselControls = document.createElement("div");
     // carouselControls.className = "carouselControls";
     // const leftContainer = document.createElement("span");
     // const leftControl = document.createElement("i");
     // leftControl.className = "fas fa-chevron-left prev";
-
     // leftContainer.addEventListener("click", () => {
     //   const offset = carouselElements.offsetWidth;
     //   carouselElements.scrollLeft -= offset;
     // });
-
     // leftContainer.appendChild(leftControl);
     // const rightContainer = document.createElement("span");
     // const rightControl = document.createElement("i");
     // rightControl.className = "fas fa-chevron-right next";
     // rightContainer.appendChild(rightControl);
-
     // rightContainer.addEventListener("click", () => {
     //   const offset = carouselElements.offsetWidth;
     //   carouselElements.scrollLeft += offset;
     // });
     // carouselControls.append(leftContainer, rightContainer);
-
     // carouselElements.insertAdjacentElement("afterbegin", carouselControls);
-    parent.appendChild(carouselContainer);
-  });
+    // parent.appendChild(carouselContainer);
+    // });
+  }
 }
+
+const mobileQuery = window.matchMedia("(max-width: 768px)");
+queryMatch(mobileQuery);
+mobileQuery.addEventListener("change", () => {
+  queryMatch(mobileQuery);
+});
