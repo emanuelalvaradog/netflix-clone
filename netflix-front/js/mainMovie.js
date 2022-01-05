@@ -176,17 +176,13 @@ function queryMatch(mobileQuery) {
       player.listenVideo(false);
     });
   } else {
-    // const header = document.querySelector(".header-container");
     if (app.firstElementChild) {
-      // console.log(app.firstElementChild);
       app.removeChild(app.firstElementChild);
     }
-    // header.removeChild(header.children[1]);
-    // header.children[0].removeChild(header.children[0].children[1]);
   }
 }
 
-const mobileQuery = window.matchMedia("(min-width: 760px)");
+const mobileQuery = window.matchMedia("(min-width: 768px)");
 queryMatch(mobileQuery);
 mobileQuery.addEventListener("change", () => {
   queryMatch(mobileQuery);

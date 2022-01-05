@@ -158,6 +158,12 @@ i {
     display: none;
     visibility: hidden;
   }
+  &-controls {
+    visibility: hidden;
+  }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .carouselContainer {
@@ -336,6 +342,12 @@ i {
       }
       .carousel-title {
         color: rgb(210, 210, 210);
+      }
+      &:hover {
+        .carouselControls {
+          visibility: hidden;
+          opacity: 0;
+        }
       }
     }
   }
