@@ -17,7 +17,11 @@ const API = "https://secure-escarpment-59792.herokuapp.com";
 
 function cardHoverOn(n) {
   const node = n.currentTarget;
-  node.classList.add("card");
+  if (node.className.includes("card")) {
+    node.classList.remove("card");
+  } else {
+    node.classList.add("card");
+  }
 }
 
 function cardHoverOff(n) {
@@ -143,8 +147,8 @@ moviesList.forEach(async (genre) => {
 
   nodes.forEach((el) => {
     el.addEventListener("mouseenter", cardHoverOn);
-
     el.addEventListener("mouseleave", cardHoverOff);
+    el.addEventListener("click", cardHoverOn);
   });
 
   // Carousel controls
