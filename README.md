@@ -1,7 +1,7 @@
 # Netflix Clone
 
 - I cloned the responsive Netflix Homepage UI using Html, CSS and JS
-- An external API was created with Express to do the consumption of the TMDB API without exposing the key.
+- A "private" API was created with Express to do the consumption of the TMDB API without exposing the key.
 
 ------------
 
