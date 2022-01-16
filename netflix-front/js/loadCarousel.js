@@ -1,18 +1,3 @@
-const fetch = (api_url) => {
-  return new Promise((resolve, reject) => {
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("GET", api_url, true);
-    xhttp.onreadystatechange = () => {
-      if (xhttp.readyState === 4) {
-        xhttp.status === 200
-          ? resolve(JSON.parse(xhttp.responseText))
-          : reject(new Error("Test Error", api_url));
-      }
-    };
-    xhttp.send();
-  });
-};
-
 const API = "https://secure-escarpment-59792.herokuapp.com";
 
 function cardHoverOn(n) {
@@ -29,8 +14,9 @@ function cardHoverOff(n) {
   node.classList.remove("card");
 }
 
-const genres = await fetch(`${API}/genres`);
-const moviesList = genres.genres;
+const response = await fetch(`${API}/genres`);
+const data = await response.json();
+const moviesList = await Promise.all(data.genres);
 const app = document.querySelector(".app");
 
 const parent = document.createElement("div");
@@ -59,7 +45,8 @@ moviesList.forEach(async (genre) => {
   );
 
   // Api Data
-  const moviesByGenre = await fetch(`${API}/movies/${genre.id}`);
+  const response = await fetch(`${API}/movies/${genre.id}`);
+  const moviesByGenre = await response.json();
 
   // const parent = document.querySelector(".carouselContainer");
   const carouselContainer = document.createElement("div");

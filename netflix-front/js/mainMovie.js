@@ -78,6 +78,13 @@ function queryMatch(mobileQuery) {
           video.muted = true;
         }
       }
+      play() {
+        video.muted = "true";
+        video.play();
+      }
+      pause() {
+        video.pause();
+      }
     }
 
     const videoObserver = new IntersectionObserver(
@@ -175,6 +182,14 @@ function queryMatch(mobileQuery) {
     video.addEventListener("ended", () => {
       player.listenVideo(false);
     });
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState !== "visible") {
+        player.pause();
+      } else {
+        player.play();
+      }
+    });
   } else {
     if (app.firstElementChild) {
       app.removeChild(app.firstElementChild);
@@ -184,6 +199,7 @@ function queryMatch(mobileQuery) {
 
 const mobileQuery = window.matchMedia("(min-width: 768px)");
 queryMatch(mobileQuery);
+
 mobileQuery.addEventListener("change", () => {
   queryMatch(mobileQuery);
 });
