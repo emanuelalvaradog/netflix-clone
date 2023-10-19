@@ -1,8 +1,8 @@
-# [Netflix Clone](https://emanuelalvaradog.github.io/netflix-clone/)
+# [Netflix Clone](https://emalvaradog.github.io/netflix-clone/)
 
 Netflix clone is a responsive web app based on the current Netflix homepage UI using HTML, CSS and JavaScript. The web app gets movies from a private API created to hide the API KEY required to make the main request to TMDB API.
 
-## [Live Demo](https://emanuelalvaradog.github.io/netflix-clone/)
+## [Live Demo](https://emalvaradog.github.io/netflix-clone/)
 
 ## Features
 
