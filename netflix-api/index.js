@@ -10,7 +10,7 @@ app.listen(PORT, () => {
 });
 
 app.get("/", (req, res) => {
-  res.send("Hey this is my API running 🥳");
+  res.send("Netflix API 🥳");
 });
 
 app.get("/genres", async (req, res, next) => {

@@ -1,4 +1,4 @@
-const API = "https://secure-escarpment-59792.herokuapp.com";
+const API = "https://netflix-clone-ten-kappa.vercel.app/";
 
 function cardHoverOn(n) {
   const node = n.currentTarget;
