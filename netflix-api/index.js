@@ -4,6 +4,8 @@ const app = express();
 const PORT = 4000;
 const URL = "https://api.themoviedb.org/3";
 
+const API_KEY="da9ba3e023f8f41d7dbbd3dcab03cc16"
+
 app.listen(PORT, () => {
   console.log(`API listening on PORT ${PORT} `);
 });
@@ -15,7 +17,7 @@ app.get("/", (req, res) => {
 app.get("/genres", async (req, res, next) => {
   try {
     const data = await fetch(
-      `${URL}/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US`
+      `${URL}/genre/movie/list?api_key=${API_KEY}&language=en-US`
     );
     const dataJSON = await data.json();
     res.send(dataJSON);
@@ -32,7 +34,7 @@ app.get("/movies/:genreNumber", async (req, res, next) => {
   try {
     const { genreNumber } = req.params;
     const data = await fetch(
-      `${URL}/discover/movie/?api_key=${process.env.API_KEY}&language=en-US&with_genres=${genreNumber}&sort_by=popularity.desc`
+      `${URL}/discover/movie/?api_key=${API_KEY}&language=en-US&with_genres=${genreNumber}&sort_by=popularity.desc`
     );
     const dataJSON = await data.json();
     res.send(dataJSON);
